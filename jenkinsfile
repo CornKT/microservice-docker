@@ -84,7 +84,9 @@ pipeline {
         stage('Deploy with Docker Compose') {
             steps {
                 script {
-                     try {
+                    sh 'apt update && apt install --yes docker-compose'
+
+                    try {
                         // Stop and remove any existing containers
                         sh 'docker compose --file docker-compose-local.yml down'
                     } catch (Exception e) {
