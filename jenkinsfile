@@ -88,18 +88,18 @@ pipeline {
 
                     try {
                         // Stop and remove any existing containers
-                        sh 'docker compose --file docker-compose-local.yml down'
+                        sh 'docker-compose --file docker-compose-local.yml down'
                     } catch (Exception e) {
                         echo 'No existing containers to stop.'
                     }
 
                     try {
                         // Pull the latest images (will fail gracefully if images do not exist yet)
-                        sh 'docker compose --file docker-compose-local.yml pull'
+                        sh 'docker-compose --file docker-compose-local.yml pull'
                     } catch (Exception e) {
                         echo 'No images found in the registry, proceeding with local builds.'
                     }
-                    sh 'docker compose --file docker-compose-local.yml up -d --build --force-recreate --remove-orphans'
+                    sh 'docker-compose --file docker-compose-local.yml up -d --build --force-recreate --remove-orphans'
                 }
             }
         }
