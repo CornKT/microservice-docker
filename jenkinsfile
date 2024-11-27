@@ -71,10 +71,10 @@ pipeline {
             steps{
                 script {
                     withCredentials([usernamePassword(credentialsId: 'nexuslogin', passwordVariable: 'PSW', usernameVariable: 'USER')]){
-                        sh "echo ${PSW} | docker login -u ${USER} --password-stdin http://172.17.160.1:8081/repository/nexus-docker-repo/"
+                        sh "echo ${PSW} | docker login -u ${USER} --password-stdin http://172.17.160.1:8082"
                         def services = ['config-server', 'discovery-server', 'employee-service', 'organization-service'] // Update with your service names
                         services.each { service ->
-                            sh "docker push 172.17.160.1:8081/repository/nexus-docker-repo/${service}:${env.BUILD_ID}"
+                            sh "docker push 172.17.160.1:8082/repository/nexus-docker-repo/${service}:${env.BUILD_ID}"
                         }
                     }
                 }
